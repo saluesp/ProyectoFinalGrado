@@ -1,0 +1,53 @@
+<detalle-persona *ngIf="personaSeleccionada" [persona] = "personaSeleccionada"></detalle-persona>
+<div class="card border-primary mb-3">
+  <div class="card-header">Visitas</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Listado de Visitas</h5>
+  <div class="my-2 text-left">
+    <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/persona/form']">Crear Persona</button>
+  </div>
+  <div *ngIf="persona?.length==0" class="alert alert-info">
+    Esta tabla esta vacia. ¡Prueba a insertar a una nueva persona!
+  </div>
+<table class="table table-bordered table-striped" *ngIf="persona?.length>0">
+  <thead>
+    <tr>
+      <th>Foto</th>
+      <th>nombre</th>
+      <th>apellidos</th>
+      <th>email</th>
+      <th>fecha</th>
+      <th>
+        Editar
+      </th>
+      <th>
+        Eliminar
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let persona of persona">
+      <td><img (click)="abrirModal(persona)" *ngIf="persona?.foto"
+          src="http://localhost:8080/api/uploads/img/{{persona.foto}}" alt="{{persona.foto}}"
+          class="img-thumbnail rounded" style="width: 64px; cursor:pointer;">
+          <img (click)="abrirModal(persona)" *ngIf="!persona?.foto"
+            src="http://localhost:8080/images/no-usuario.png" alt="Sin foto"
+            class="img-thumbnail rounded" style="width: 64px; cursor:pointer;">
+
+        </td>
+      <td>{{ persona.nombre}}</td>
+      <td>{{ persona.apellidos | uppercase}}</td>
+      <td>{{ persona.email}}</td>
+      <td>{{ persona.createAt | date:"EEEE, dd 'de' MMMM 'de' yyyy"}}</td>
+      <td>
+        <button type="button" name="editar" [routerLink]="['/persona/form', persona.id]" class="btn btn-primary btn-sm">Editar</button>
+      </td>
+      <td>
+        <button type="button" name="eliminar" (click)='delete(persona)' class="btn btn-danger btn-sm">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+  <paginator-nav *ngIf="paginador" [paginador] = "paginador"></paginator-nav>
+  </div>
+</div>

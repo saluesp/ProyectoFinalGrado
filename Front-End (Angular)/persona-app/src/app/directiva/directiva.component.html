@@ -1,0 +1,12 @@
+<div class="bg-secondary text-white py-2 pl-2">
+<h2>SERVICIOS DE LOS CENTROS CULTURALES DE LA COMUNIDAD DE MADRID</h2>
+</div>
+<button type="button" (click)="setHabilitar()" class="btn btn-primary my-3">{{habilitar==true? 'Ocultar': 'Mostrar'}}</button>
+<div class="card">
+  <div class="card-header">
+    Listado de servicios
+  </div>
+  <ul class="list-group" *ngIf=habilitar>
+    <li class ="list-group-item bg-info text-white" *ngFor="let curso of listaCurso">{{curso}}</li>
+  </ul>
+</div>
